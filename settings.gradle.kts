@@ -1,1 +1,1 @@
-include(":libs")
+include(":libs", ":content")

@@ -5,5 +5,14 @@
   "version": "1.0",
   "action": {
     "default_popup": "popup.html"
-  }
+  },
+  "content_scripts": [
+    {
+      "js": ["content.js"],
+      "matches": [
+        "https://twitter.com/*",
+        "https://x.com/*"
+      ]
+    }
+  ]
 }

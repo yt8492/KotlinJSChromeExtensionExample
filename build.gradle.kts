@@ -22,7 +22,26 @@ kotlin {
     sourceSets {
         val jsMain by getting {
             dependencies {
+                implementation(project(":libs"))
                 implementation(kotlin("stdlib-js"))
+            }
+        }
+    }
+}
+
+tasks {
+    getByPath(":jsBrowserWebpack").apply {
+        dependsOn(":content:jsBrowserWebpack")
+        doLast {
+            copy {
+                val sourcePaths = project.subprojects.map {
+                    val buildDir = it.layout.buildDirectory.asFile.get()
+                    "$buildDir/dist/js/productionExecutable"
+                }
+                from(*sourcePaths.toTypedArray())
+                val buildDir = project.layout.buildDirectory.asFile.get()
+                val destPath = "$buildDir/dist/js/productionExecutable"
+                into(destPath)
             }
         }
     }
